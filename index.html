@@ -13,20 +13,33 @@
   <body>
     <!-- Header Section -->
     <header>
-      <div>
-        <button id="prev-block">&#8592; Previous</button>
-        <button id="next-block">Next &#8594;</button>
+      <div class="nav-controls">
+  <button id="prev-block" type="button">&#8592; Previous</button>
+  <button id="next-block" type="button">Next &#8594;</button>
       </div>
       <div id="block-info">
         <span id="current-block">Block Number: N/A</span>
       </div>
-      <div>
+      <div class="search-controls">
         <input
           type="number"
           id="block-search"
           placeholder="Search Block Number"
         />
-        <button id="search-btn">Search</button>
+  <button id="search-btn" type="button">Search</button>
+      </div>
+      <div class="range-controls">
+        <input
+          type="number"
+          id="range-start"
+          placeholder="From Block"
+        />
+        <input
+          type="number"
+          id="range-end"
+          placeholder="To Block"
+        />
+  <button id="range-fetch-btn" type="button">Fetch Range</button>
       </div>
     </header>
     <!-- Graph Container -->
@@ -56,6 +69,6 @@
     </div>
 
     <!-- JavaScript Section -->
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="script.js?v=20241024"></script>
   </body>
 </html>
