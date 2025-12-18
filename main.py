@@ -135,7 +135,14 @@ async def get_block_range(payload: BlockRangeRequest):
 
 def filter_transactions(data):
     transactions = data.get('result', {}).get('transactions', [])
-    filtered_transactions = [{tx.get('from'): tx.get('to')} for tx in transactions]
+    filtered_transactions = []
+    for tx in transactions:
+        from_addr = tx.get('from')
+        to_addr = tx.get('to')
+        if not from_addr or not to_addr:
+            # Skip invalid or contract-creation tx (to == None)
+            continue
+        filtered_transactions.append({from_addr: to_addr})
     return json.dumps(filtered_transactions)
 
 
@@ -146,8 +153,12 @@ def filter_transactions_range(blocks_data):
         transactions = block_result.get('transactions', [])
         if not transactions:
             continue
-
-        aggregated_links.extend([{tx.get('from'): tx.get('to')} for tx in transactions])
+        for tx in transactions:
+            from_addr = tx.get('from')
+            to_addr = tx.get('to')
+            if not from_addr or not to_addr:
+                continue
+            aggregated_links.append({from_addr: to_addr})
 
     return json.dumps(aggregated_links)
 

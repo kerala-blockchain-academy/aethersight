@@ -96,6 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         parsedLinks.forEach(transaction => {
             Object.entries(transaction).forEach(([from, to]) => {
+                if (!from || !to || typeof from !== 'string' || typeof to !== 'string') {
+                    return;
+                }
                 if (!nodesMap.has(from)) {
                     nodesMap.set(from, { id: from, group: 'from' });
                 }
@@ -105,6 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 links.push({ source: from, target: to });
             });
         });
+
+        console.debug('Graph data summary', { nodes: nodesMap.size, links: links.length });
 
         const nodes = Array.from(nodesMap.values());
         if (nodes.length === 0) {
